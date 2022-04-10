@@ -3,9 +3,9 @@
     "path": "~/GitHub/DataSimulation/ld_simulation.R",
     "project_path": "ld_simulation.R",
     "type": "r_source",
-    "hash": "0",
+    "hash": "2461376099",
     "contents": "",
-    "dirty": true,
+    "dirty": false,
     "created": 1649532283734.0,
     "source_on_save": false,
     "relative_order": 1,
@@ -17,11 +17,11 @@
         "scrollLine": "44"
     },
     "folds": "",
-    "lastKnownWriteTime": 1649536619,
+    "lastKnownWriteTime": 1649550886,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1649549395775,
+    "last_content_update": 1649550886955,
     "read_only": false,
     "read_only_alternatives": []
 }

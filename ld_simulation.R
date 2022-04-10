@@ -47,18 +47,28 @@ data_calib <- data[1 : n_calib, ]
 data_test <- data[(n_calib + 1) : (n_calib + n_test), ]
 data <- rbind(data_fit, data_calib)
 
-data <- rbind(data_fit,data_calib)
 ########################################
 ## determine alpha
 ########################################
-gamma=table(data_fit$event)[1]/nrow(data_fit)
+gamma=table(data$event)[1]/nrow(data)
 alpha = alpha/gamma
 
+
+
 ########################################
-## set up x and y
+## preparing parameters for distribution free conformal methods
 ########################################
-x <- data_fit$X1[which(data_fit$event==F)]
-y <- data_fit$C[which(data_fit$event==F)]
+x <- data$X1[which(data$event==F)]
+y <- data$C[which(data$event==F)]
+x0<- data_test$X1[which(data_test$event==F)]
+y0<- data_test$C[which(data_test$event==F)]
+
+########################################
+## set up training and prediction functions
+########################################
+
+
+
 ########################################
 ## implement distribution tree: full conformal inference
 ########################################
