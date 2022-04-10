@@ -62,63 +62,16 @@ x <- data$X1[which(data$event==F)]
 y <- data$C[which(data$event==F)]
 x0<- data_test$X1[which(data_test$event==F)]
 y0<- data_test$C[which(data_test$event==F)]
+lambda<-0#ridge regression
 
 ########################################
 ## set up training and prediction functions
 ########################################
-
-
-
-########################################
-## implement distribution tree: full conformal inference
-########################################
-out = train.fun(x,y) 
-fit = matrix(predict.fun(out,x),nrow=n)
-pred = matrix(predict.fun(out,x0),nrow=n0)
-m = ncol(pred)
-
-# Trial values for y, empty lo, up matrices to fill
-ymax = max(abs(y))
-yvals = seq(-grid.factor*ymax, grid.factor*ymax,length=num.grid.pts)
-lo = up = matrix(0,n0,m)
-qvals = rvals = matrix(0,num.grid.pts,m)
-xx = rbind(x,rep(0,p))
-
-for (i in 1:n0) {
-  if (verbose) {
-    cat(sprintf("\r%sProcessing prediction point %i (of %i) ...",txt,i,n0))
-    flush.console()
-  }
-  
-  xx[n+1,] = x0[i,]
-  ww = c(w[1:n],w[n+i])
-  
-  # Refit for each point in yvals, compute conformal p-value
-  for (j in 1:num.grid.pts) {
-    yy = c(y,yvals[j])
-    if (j==1) out = train.fun(xx,yy)
-    else out = train.fun(xx,yy,out)
-    r = abs(yy - matrix(predict.fun(out,xx),nrow=n+1))
-    
-    # Local scoring?
-    if (!is.null(mad.train.fun) && !is.null(mad.predict.fun)) {
-      for (l in 1:m) {
-        if (j==1 && l==1) out.mad = mad.train.fun(xx,r[,l])
-        else out.mad = mad.train.fun(xx,r[,l],out.mad)
-        r[,l] = r[,l] / mad.predict.fun(out.mad,xx)
-      }
-    }
-    
-    qvals[j,] = apply(r,2,weighted.quantile,prob=1-alpha,w=ww)
-    rvals[j,] = r[n+1,]
-  }
-  
-  for (l in 1:m) {
-    int = grid.interval(yvals,rvals[,l],qvals[,l])
-    lo[i,l] = int$lo
-    up[i,l] = int$up
-  }
+library(conformalInference)
+my.lm.funs = lm.funs(lambda=lambda)
+my.conf.fun = function(x, y, x0) {
+  conformal.pred(x,y,x0,alpha=alpha,verb="\t\t",
+                 train.fun=my.lm.funs$train,
+                 predict.fun=my.lm.funs$predict)
 }
-if (verbose) cat("\n")
 
-return(list(pred=pred,lo=lo,up=up,fit=fit))

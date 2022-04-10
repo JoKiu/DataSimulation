@@ -1,19 +1,17 @@
 {
-    "id": "FEFF848E",
-    "path": "C:/Projects/conformal-master/conformal-master/lei2018/sim.lm.lo.R",
+    "id": "A3C149C6",
+    "path": "C:/Projects/conformal-master/conformal-master/lei2018/sim.setting.a.R",
     "project_path": null,
     "type": "r_source",
     "hash": "0",
     "contents": "",
     "dirty": false,
-    "created": 1649533689255.0,
+    "created": 1649589194263.0,
     "source_on_save": false,
-    "relative_order": 2,
+    "relative_order": 6,
     "properties": {
         "source_window_id": "",
-        "Source": "Source",
-        "cursorPosition": "22,1",
-        "scrollLine": "3"
+        "Source": "Source"
     },
     "folds": "",
     "lastKnownWriteTime": 1648857927,
