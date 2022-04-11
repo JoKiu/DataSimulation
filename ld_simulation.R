@@ -78,5 +78,5 @@ my.conf.fun = function(x, y, x0) {
 ## train, predict and coverage
 ########################################
 pred_out<-my.conf.fun(x,y,x0)
-mean(y0>pred_out)#lower bound only
+mean(y0>pred_out$lo)#lower bound only
 mean(y0>pred_out$lo&y0<pred_out$up)
