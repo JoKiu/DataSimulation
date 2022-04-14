@@ -14,7 +14,7 @@ beta <- 20 / sqrt(n)
 
 xmin <- 0; xmax <- 4
 exp_rate <- 0.4
-alpha <- 0.05
+alpha <- 0.1
 
 ########################################
 ## Data generating models
@@ -51,7 +51,7 @@ data <- rbind(data_fit, data_calib)
 ## determine alpha
 ########################################
 gamma=table(data$event)[1]/nrow(data)
-alpha = alpha/gamma
+alpha = (2*alpha)/gamma
 
 
 
