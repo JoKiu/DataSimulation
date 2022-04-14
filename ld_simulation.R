@@ -50,18 +50,20 @@ data <- rbind(data_fit, data_calib)
 ########################################
 ## determine alpha
 ########################################
+
 gamma=table(data$event)[1]/nrow(data)
 alpha = (2*alpha)/gamma
+
 
 
 
 ########################################
 ## preparing parameters for distribution free conformal methods
 ########################################
-x <- data$X1[which(data$event==F)]
-y <- data$C[which(data$event==F)]
-x0<- data_test$X1[which(data_test$event==F)]
-y0<- data_test$C[which(data_test$event==F)]
+x <- data$X1[which(data$event)]
+y <- data$C[which(data$event)]
+x0<- data_test$X1[which(data_test$event)]
+y0<- data_test$C[which(data_test$event)]
 lambda<-0#ridge regression
 
 ########################################
