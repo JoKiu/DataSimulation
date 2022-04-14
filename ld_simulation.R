@@ -11,17 +11,15 @@ n_train <- n / 2
 n_calib <- n / 2
 n_test <- 3000
 beta <- 20 / sqrt(n)
-exp_rate <- 0.4
-c_ref <- 1 : 6 / 2
+
 xmin <- 0; xmax <- 4
-sigma_x <- function(x) (5 + x)/5
-pr_all_list <- matrix(0, n + n_test, length(c_ref))
-alpha<- 0.05
+exp_rate <- 0.4
+alpha <- 0.05
 
 ########################################
 ## Data generating models
 ########################################
-gen_t <- function(x) exp(2 + beta * sqrt(abs(x)) +  sigma_x(x) * rnorm(length(x))) 
+gen_t <- function(x) exp(2 + beta * sqrt(abs(x)) +  1.5 * rnorm(length(x))) 
 gen_c <- function(x) rexp(rate = exp_rate, n = length(x)) 
 
 ########################################
@@ -46,7 +44,7 @@ event <- (T < C)
 censored_T <- pmin(T, C)
 data <- data.frame(X1 = X, C = C, event = event, censored_T = censored_T)
 data_calib <- data[1 : n_calib, ]
-data_test <- data[(n_calib + 1) : (n_calib + n_test),]
+data_test <- data[(n_calib + 1) : (n_calib + n_test), ]
 data <- rbind(data_fit, data_calib)
 
 ########################################
