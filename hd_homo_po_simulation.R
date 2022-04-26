@@ -15,7 +15,7 @@ xnames <- paste0("X",1:p)
 c_ref <-1 : 6 / 2
 exp_rate <- 0.04
 alpha <- 0.1
-
+tau <- 15
 ########################################
 ## Data generating models
 ########################################
@@ -65,7 +65,7 @@ data <- rbind(data_fit,data_calib)
 ########################################
 x <- data[,xnames]
 source('PO_function.R')
-y <- get.po(data$censored_T,data$event)
+y <- get.po(data$censored_T,data$event,tau)
 x0<- as.matrix(data_test[,xnames])
 y0<- data_test$censored_T
 lambda<-0#ridge regression

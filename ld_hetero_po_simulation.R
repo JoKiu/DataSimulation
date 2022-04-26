@@ -17,7 +17,7 @@ xmin <- 0; xmax <- 4
 sigma_x <- function(x) (5 + x)/5
 pr_all_list <- matrix(0, n + n_test, length(c_ref))
 alpha<- 0.1
-
+tau=15
 ########################################
 ## Data generating models
 ########################################
@@ -64,7 +64,7 @@ data <- rbind(data_fit, data_calib)
 ########################################
 x <- data$X1
 source('PO_function.R')
-y <- get.po(censored_T = data$censored_T,event = data$event)
+y <- get.po(censored_T = data$censored_T,event = data$event,tau)
 x0<- data_test$X1
 y0<- data_test$censored_T
 lambda<-0#ridge regression

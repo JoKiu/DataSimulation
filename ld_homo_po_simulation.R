@@ -16,7 +16,7 @@ xmin <- 0; xmax <- 4
 #exp_rate <- 0.4
 exp_rate<-0.04#also try 0.025 and 0.01
 alpha <- 0.1
-
+tau = 15
 ########################################
 ## Data generating models
 ########################################
@@ -63,7 +63,7 @@ data <- rbind(data_fit, data_calib)
 ########################################
 source('PO_function.R')
 x <- data$X1
-y <- get.po(censored_T = data$censored_T,event = data$event)
+y <- get.po(censored_T = data$censored_T,event = data$event,tau)
 x0<- data_test$X1
 y0<- data_test$censored_T
 lambda<-0#ridge regression
