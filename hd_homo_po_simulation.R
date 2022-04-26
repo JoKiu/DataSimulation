@@ -14,17 +14,18 @@ beta <- 30 / sqrt(n)
 xnames <- paste0("X",1:p) 
 c_ref <-1 : 6 / 2
 exp_rate <- 0.04
-alpha <- 0.05
+alpha <- 0.1
 
 ########################################
 ## Data generating models
 ########################################
-mu_x <- function(x) beta * x[,1]^2 - beta * x[,3] * x[,5] + 1
-sigma_x <- function(x) (abs(x[,10]) + 1) 
-gen_t <- function(x) 2 * exp(mu_x(x) + sigma_x(x) * rnorm(dim(x)[1]))
+mu_x <- function(x) beta * x[,1]^2 - beta * x[,3] * x[,5] + 1 
+gen_t <- function(x) 2 * exp(mu_x(x) + rnorm(dim(x)[1]))
 gen_c <- function(x) rexp(rate = exp_rate, n = dim(x)[1])
 
+########################################
 ## Generate training data
+########################################
 set.seed(24601)
 X <- matrix(runif(n_train * p, min = -1, max = 1), n_train)
 T <- gen_t(X)
@@ -48,12 +49,13 @@ colnames(data) <- c(xnames, "C", "censored_T", "event")
 data_calib <- data[1:n_calib,]
 data_test <- data[(n_calib+1) : (n_calib+n_test),]
 data <- rbind(data_fit,data_calib)
+
 ########################################
 ## determine alpha
 ########################################
 
-gamma=sum(data$event)/nrow(data)
-alpha = (2*alpha)/gamma
+# gamma=table(data$event)[2]/nrow(data)
+# alpha = (2*alpha)/gamma
 
 
 
@@ -61,9 +63,10 @@ alpha = (2*alpha)/gamma
 ########################################
 ## preparing parameters for distribution free conformal methods
 ########################################
-x <- data$X1[which(data$event)]
-y <- data$censored_T[which(data$event)]
-x0<- data_test$X1
+x <- data[,xnames]
+source('PO_function.R')
+y <- get.po(data$censored_T,data$event)
+x0<- as.matrix(data_test[,xnames])
 y0<- data_test$censored_T
 lambda<-0#ridge regression
 

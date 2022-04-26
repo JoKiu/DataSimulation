@@ -14,7 +14,7 @@ beta <- 20 / sqrt(n)
 
 xmin <- 0; xmax <- 4
 #exp_rate <- 0.4
-exp_rate<-0.05#also try 0.025 and 0.01
+exp_rate<-0.04#also try 0.025 and 0.01
 alpha <- 0.1
 
 ########################################
@@ -62,9 +62,9 @@ alpha
 ## preparing parameters for distribution free conformal methods
 ########################################
 x <- data$X1[which(data$event)]
-y <- data$C[which(data$event)]
-x0<- data_test$X1[which(data_test$event)]
-y0<- data_test$C[which(data_test$event)]
+y <- data$censored_T[which(data$event)]
+x0<- data_test$X1
+y0<- data_test$censored_T
 lambda<-0#ridge regression
 
 ########################################

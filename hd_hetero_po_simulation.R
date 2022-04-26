@@ -14,7 +14,7 @@ beta <- 30 / sqrt(n)
 xnames <- paste0("X",1:p) 
 c_ref <-1 : 6 / 2
 exp_rate <- 0.04
-alpha <- 0.05
+alpha <- 0.1
 
 ########################################
 ## Data generating models
@@ -48,12 +48,13 @@ colnames(data) <- c(xnames, "C", "censored_T", "event")
 data_calib <- data[1:n_calib,]
 data_test <- data[(n_calib+1) : (n_calib+n_test),]
 data <- rbind(data_fit,data_calib)
+
 ########################################
 ## determine alpha
 ########################################
 
-gamma=sum(data$event)/nrow(data)
-alpha = (2*alpha)/gamma
+# gamma=table(data$event)[2]/nrow(data)
+# alpha = (2*alpha)/gamma
 
 
 
@@ -61,9 +62,10 @@ alpha = (2*alpha)/gamma
 ########################################
 ## preparing parameters for distribution free conformal methods
 ########################################
-x <- data$X1[which(data$event)]
-y <- data$censored_T[which(data$event)]
-x0<- data_test$X1
+x <- data[,xnames]
+source('PO_function.R')
+y <- get.po(data$censored_T,data$event)
+x0<- as.matrix(data_test[,xnames])
 y0<- data_test$censored_T
 lambda<-0#ridge regression
 

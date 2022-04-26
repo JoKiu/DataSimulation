@@ -11,12 +11,12 @@ n_train <- n / 2
 n_calib <- n / 2
 n_test <- 3000
 beta <- 20 / sqrt(n)
-exp_rate <- 0.4
+exp_rate <- 0.04
 c_ref <- 1 : 6 / 2
 xmin <- 0; xmax <- 4
 sigma_x <- function(x) (5 + x)/5
 pr_all_list <- matrix(0, n + n_test, length(c_ref))
-alpha<- 0.05
+alpha<- 0.1
 
 ########################################
 ## Data generating models
@@ -53,7 +53,7 @@ data <- rbind(data_fit, data_calib)
 ## determine alpha
 ########################################
 
-gamma=table(data$event)[2]/nrow(data)
+gamma=sum(data$event)/nrow(data)
 alpha = (2*alpha)/gamma
 
 
@@ -63,9 +63,9 @@ alpha = (2*alpha)/gamma
 ## preparing parameters for distribution free conformal methods
 ########################################
 x <- data$X1[which(data$event)]
-y <- data$C[which(data$event)]
-x0<- data_test$X1[which(data_test$event)]
-y0<- data_test$C[which(data_test$event)]
+y <- data$censored_T[which(data$event)]
+x0<- data_test$X1
+y0<- data_test$censored_T
 lambda<-0#ridge regression
 
 ########################################
