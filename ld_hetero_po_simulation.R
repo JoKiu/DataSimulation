@@ -33,7 +33,7 @@ T <- gen_t(X)
 C <- gen_c(X)
 event <- (T < C)
 censored_T <- pmin(T, C)
-data_fit <- data.frame(X1 = X, C = C, censored_T = censored_T, event = event)
+data_fit <- data.frame(X1 = X, T = T, censored_T = censored_T, event = event)
 
 ########################################
 ## Generate the calibration data and the test data
@@ -44,7 +44,7 @@ T <- gen_t(X)
 C <- gen_c(X)
 event <- (T < C)
 censored_T <- pmin(T, C)
-data <- data.frame(X1 = X, C = C, event = event, censored_T = censored_T)
+data <- data.frame(X1 = X, T = T, event = event, censored_T = censored_T)
 data_calib <- data[1 : n_calib, ]
 data_test <- data[(n_calib + 1) : (n_calib + n_test),]
 data <- rbind(data_fit, data_calib)
@@ -66,7 +66,7 @@ x <- data$X1
 source('PO_function.R')
 y <- get.po(censored_T = data$censored_T,event = data$event,tau)
 x0<- data_test$X1
-y0<- data_test$censored_T
+y0<- data_test$T
 lambda<-0#ridge regression
 
 ########################################

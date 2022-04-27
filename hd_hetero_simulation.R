@@ -31,7 +31,7 @@ T <- gen_t(X)
 C <- gen_c(X) 
 event <- (T<C)
 censored_T <- pmin(T,C)
-data_fit <- data.frame(X, C = C, censored_T = censored_T, event = event)
+data_fit <- data.frame(X, T = T, censored_T = censored_T, event = event)
 colnames(data_fit) <- c(xnames, "C", "censored_T", "event")
 
 ########################################
@@ -43,7 +43,7 @@ T <- gen_t(X)
 C <- gen_c(X)
 event <- (T<C)
 censored_T <- pmin(T,C)
-data <- data.frame(X, C = C, censored_T = censored_T,  event = event)
+data <- data.frame(X, T = T, censored_T = censored_T,  event = event)
 colnames(data) <- c(xnames, "C", "censored_T", "event")
 data_calib <- data[1:n_calib,]
 data_test <- data[(n_calib+1) : (n_calib+n_test),]
@@ -64,7 +64,7 @@ alpha = (2*alpha)/gamma
 x <- data$X1[which(data$event)]
 y <- data$censored_T[which(data$event)]
 x0<- data_test$X1
-y0<- data_test$censored_T
+y0<- data_test$T
 lambda<-0#ridge regression
 
 ########################################
