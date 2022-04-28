@@ -68,6 +68,7 @@ function (x, y, x0, train.fun, predict.fun, alpha = 0.1, w = NULL,
       int = grid.interval(yvals, rvals[, l], qvals[, l])
       lo[i, l] = int$lo
       up[i, l] = int$up
+      browser()
     }
   }
   if (verbose) 

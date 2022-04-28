@@ -2,7 +2,7 @@
 # expected parameter are censored survival time and censored status.
 library(survival)
 get.po<-function(censored_T,event,tau){
-  cat('check in function:',tau)
+  cat('check tau in function:',tau,'\n')
   stopifnot(length(censored_T)==length(event))#check if length match
   nn<-length(censored_T)
   fit1<-survfit(Surv(censored_T,event)~1)#fit the whole dataset survival fit
@@ -11,6 +11,7 @@ get.po<-function(censored_T,event,tau){
   n_t <- length(time_0)-1
   delta_surv <- rowMeans(cbind(c(1,fit1$surv[1:(n_t-1)]),fit1$surv[1:n_t]))#calculate delta S(u)
   output<-rep(NA,nn)
+  cat(sum(delta_surv*delta_t))
   for(i in 1:nn){
     fit2<-survfit(Surv(censored_T[-i],event[-i])~1) #removing one observation i
     time_1 <- c(0,fit2$time[which(fit2$time<=tau)]) #refit

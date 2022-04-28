@@ -9,8 +9,8 @@ library(conformalInference)
 ##set up tau, exp_rate, alpha
 ###############
 exp_rate=0.04
-alpha=0.1
-tau_list <- c(5,10,15,20)
+alpha=0.2
+tau_list <- c(2)
 
 ###############
 ##creating output table(unfinished)

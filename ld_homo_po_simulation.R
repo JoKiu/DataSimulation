@@ -16,7 +16,7 @@ xmin <- 0; xmax <- 4
 #exp_rate <- 0.4
 exp_rate<-0.04#also try 0.025 and 0.01
 alpha <- 0.1
-tau = 15
+tau = 5
 ########################################
 ## Data generating models
 ########################################
