@@ -33,7 +33,7 @@ C <- gen_c(X)
 event <- (T<C)
 censored_T <- pmin(T,C)
 data_fit <- data.frame(X, T = T, censored_T = censored_T, event = event)
-colnames(data_fit) <- c(xnames, "C", "censored_T", "event")
+colnames(data_fit) <- c(xnames, "T", "censored_T", "event")
 
 ########################################
 ## Generate the calibration data and the test data
@@ -45,7 +45,7 @@ C <- gen_c(X)
 event <- (T<C)
 censored_T <- pmin(T,C)
 data <- data.frame(X, T = T, censored_T = censored_T,  event = event)
-colnames(data) <- c(xnames, "C", "censored_T", "event")
+colnames(data) <- c(xnames, "T", "censored_T", "event")
 data_calib <- data[1:n_calib,]
 data_test <- data[(n_calib+1) : (n_calib+n_test),]
 data <- rbind(data_fit,data_calib)
@@ -63,9 +63,9 @@ alpha = (2*alpha)/gamma
 ########################################
 ## preparing parameters for distribution free conformal methods
 ########################################
-x <- data$X1[which(data$event)]
+x <- data[which(data$event),xnames]
 y <- data$censored_T[which(data$event)]
-x0<- data_test$X1
+x0<- as.matrix(data_test[which(data$event),xnames])
 y0<- data_test$T
 lambda<-0#ridge regression
 
