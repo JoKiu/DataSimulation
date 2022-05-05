@@ -54,7 +54,7 @@ data <- rbind(data_fit, data_calib)
 ########################################
 
 gamma=sum(data$event)/nrow(data)
-alpha = (2*alpha)/gamma
+alpha = (alpha)/gamma
 
 
 

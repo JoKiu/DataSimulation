@@ -55,7 +55,7 @@ data <- rbind(data_fit,data_calib)
 ########################################
 
 gamma=sum(data$event)/nrow(data)
-alpha = (2*alpha)/gamma
+alpha = (alpha)/gamma
 
 
 
@@ -65,7 +65,7 @@ alpha = (2*alpha)/gamma
 ########################################
 x <- data[which(data$event),xnames]
 y <- data$censored_T[which(data$event)]
-x0<- as.matrix(data_test[which(data$event),xnames])
+x0<- as.matrix(data_test[,xnames])
 y0<- data_test$T
 lambda<-0#ridge regression
 

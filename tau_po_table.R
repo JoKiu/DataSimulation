@@ -1,6 +1,6 @@
 exp_rate=0.04
 alpha=0.1
-tau_list <- c(5,10,15,20)
+tau_list <- c(2,22,24,26)
 namelist<-c('ld_homo','ld_hetero','hd_homo','hd_hetero')
 source('PO_function.R')
 library(conformalInference)

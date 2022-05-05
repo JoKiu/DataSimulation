@@ -14,7 +14,7 @@ beta <- 30 / sqrt(n)
 xnames <- paste0("X",1:p) 
 c_ref <-1 : 6 / 2
 exp_rate <- 0.04
-alpha <- 0.05
+alpha <- 0.1
 
 ########################################
 ## Data generating models
@@ -53,7 +53,7 @@ data <- rbind(data_fit,data_calib)
 ########################################
 
 gamma=sum(data$event)/nrow(data)
-alpha = (2*alpha)/gamma
+alpha = (alpha)/gamma
 
 
 
