@@ -1,7 +1,7 @@
 #Data simulation
 #This script is not expected to run by itself, parameter need to be setup
 # tau exp_rate alpha
-
+#from here
 seed <- 1
 
 ########################################
@@ -52,6 +52,7 @@ data <- rbind(data_fit, data_calib)
 ## preparing parameters for distribution free conformal methods
 ########################################
 x <- data$X1
+#to here
 y <- get.po(censored_T = data$censored_T,event = data$event,tau)
 x0<- data_test$X1
 y0<- data_test$T
