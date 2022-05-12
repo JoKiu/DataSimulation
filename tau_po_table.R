@@ -37,8 +37,8 @@ get.barSurv<- function(censored_T,event,tau){
 
 ld.homo.results<-sapply(tau_list, function(x)source_lb('sources_scripts/ld_homo_po_sour.R',tau=x))
 ld.hetero.results<-sapply(tau_list, function(x)source_lb('sources_scripts/ld_hetero_po_sour.R',tau=x))
-hd.homo.results<-sapply(tau_list, function(x)source_lb('sources_scripts/hd_homo_po_sour.R',tau=x))
-hd.hetero.results<-sapply(tau_list, function(x)source_lb('sources_scripts/hd_hetero_po_sour.R',tau=x))
+# hd.homo.results<-sapply(tau_list, function(x)source_lb('sources_scripts/hd_homo_po_sour.R',tau=x))
+# hd.hetero.results<-sapply(tau_list, function(x)source_lb('sources_scripts/hd_hetero_po_sour.R',tau=x))
 
 ld.homo.Sbar<-sapply(tau_list, function(x)source_get_barS('sources_scripts/ld_homo_po_sour.R',tau=x))
 ld.hetero.Sbar<-sapply(tau_list, function(x)source_get_barS('sources_scripts/ld_hetero_po_sour.R',tau=x))
