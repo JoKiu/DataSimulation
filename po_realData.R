@@ -16,14 +16,15 @@ test.df <- df[test.i,]
 ##########################
 alpha = 0.1
 lambda = 0
+tau = max(df$time)
 
 #########################
-#with uncencored only
+#get po
 ##########################
-gamma <- mean(train.df$cens==1)
-alpha <- alpha/gamma
-x <- train.df[with(train.df,cens==1),c(2,3,4)]
-y <- train.df[with(train.df,cens==1),5]
+
+x <- train.df[,c(2,3,4)]
+source('PO_function.R')
+y <- get.po(train.df$time,train.df$cens,tau)
 x0 <- test.df[,c(2,3,4)]
 y0 <- test.df[,5]
 
