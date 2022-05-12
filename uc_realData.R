@@ -24,8 +24,8 @@ gamma <- mean(train.df$cens==1)
 alpha <- alpha/gamma
 x <- train.df[with(train.df,cens==1),c(2,3,4)]
 y <- train.df[with(train.df,cens==1),5]
-x0 <- test.df[,c(2,3,4)]
-y0 <- test.df[,5]
+x0 <- test.df[with(test.df,cens==1),c(2,3,4)]
+y0 <- test.df[with(test.df,cens==1),5]
 
 x0 <- as.matrix(x0)
 ########################################

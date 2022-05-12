@@ -40,6 +40,10 @@ hd.hetero.results<-sapply(explist, function(x)source_lb('sources_scripts/hd_hete
 # ld.homo.Sbar<-sapply(tau_list, function(x)source_get_barS('sources_scripts/ld_homo_po_sour.R',tau=x))
 # ld.hetero.Sbar<-sapply(tau_list, function(x)source_get_barS('sources_scripts/ld_hetero_po_sour.R',tau=x))
 
+ld.homo.gamma<-sapply(explist, function(x)source_get_gamma('sources_scripts/ld_homo_uc_sour.R',exp_rate =x))
 
+ld.hetero.gamma<-sapply(explist, function(x)source_get_gamma('sources_scripts/ld_hetero_uc_sour.R',exp_rate =x))
 
+hd.homo.gamma<-sapply(explist, function(x)source_get_gamma('sources_scripts/hd_homo_uc_sour.R',exp_rate =x))
 
+hd.hetero.gamma<-sapply(explist, function(x)source_get_gamma('sources_scripts/hd_hetero_uc_sour.R',exp_rate =x))
