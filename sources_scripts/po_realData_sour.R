@@ -1,10 +1,7 @@
-df<-read.csv('naccci.csv')
-rownames(df)<-df$X
-df<-df[-1]
-dim(df)
-#########################
-set.seed(1)
 
+#########################
+#sample training
+#########################
 train.i<-sample(rownames(df),4000)
 test.i<-dplyr::setdiff(rownames(df),train.i)
 (length(train.i)+length(test.i))==nrow(df)
@@ -16,7 +13,13 @@ test.df <- df[test.i,]
 ##########################
 alpha = 0.1
 lambda = 0
-tau = max(df$time)
+cat('check if probs exists: ',exists('probs'),'\n')
+if(exists('probs')&&!is.null(probs)){
+  tau = quantile(df$time,probs = probs)
+}else{
+  tau = max(train.df$time)  
+}
+
 
 #########################
 #get po
@@ -43,5 +46,4 @@ my.conf.fun = function(x, y, x0) {
 ## train, predict and coverage
 ########################################
 pred_out<-my.conf.fun(x,y,x0)
-mean(y0>pred_out$lo)#lower bound only
-mean(y0>pred_out$lo&y0<pred_out$up)
+cat(mean(y0>pred_out$lo),'\n')#lower bound only

@@ -1,10 +1,6 @@
-df<-read.csv('naccci.csv')
-rownames(df)<-df$X
-df<-df[-1]
-dim(df)
 #########################
-set.seed(1)
-
+# sample training
+#########################
 train.i<-sample(rownames(df),4000)
 test.i<-dplyr::setdiff(rownames(df),train.i)
 (length(train.i)+length(test.i))==nrow(df)
@@ -16,15 +12,14 @@ test.df <- df[test.i,]
 ##########################
 alpha = 0.1
 lambda = 0
-tau = max(df$time)
 
 #########################
-#get po
+#with uncencored only
 ##########################
-
-x <- train.df[,c(2,3,4)]
-source('PO_function.R')
-y <- get.po(train.df$time,train.df$cens,tau)
+gamma <- mean(train.df$cens==1)
+alpha <- alpha/gamma
+x <- train.df[with(train.df,cens==1),c(2,3,4)]
+y <- train.df[with(train.df,cens==1),5]
 x0 <- test.df[with(test.df,cens==1),c(2,3,4)]
 y0 <- test.df[with(test.df,cens==1),5]
 
@@ -43,5 +38,4 @@ my.conf.fun = function(x, y, x0) {
 ## train, predict and coverage
 ########################################
 pred_out<-my.conf.fun(x,y,x0)
-mean(y0>pred_out$lo)#lower bound only
-mean(y0>pred_out$lo&y0<pred_out$up)
+cat(mean(y0>pred_out$lo),'\n')#lower bound only

@@ -3,7 +3,7 @@ rownames(df)<-df$X
 df<-df[-1]
 dim(df)
 #########################
-set.seed(1)
+# set.seed(1)
 
 train.i<-sample(rownames(df),4000)
 test.i<-dplyr::setdiff(rownames(df),train.i)
