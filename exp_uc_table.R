@@ -12,6 +12,7 @@ source_lb <- function(dir,exp_rate){
   return(mean(y0>pred_out$lo))
 }
 
+#this is a function to return gamma value
 source_get_gamma <- function(dir,exp_rate,startTag='#from here',endTag='#to here') {
   lines <- scan(dir, what=character(), sep="\n", quiet=TRUE)
   st<-grep(startTag,lines)
@@ -20,6 +21,7 @@ source_get_gamma <- function(dir,exp_rate,startTag='#from here',endTag='#to here
   source(tc,local = T)
   return(gamma)
 }
+#this is a function to return alpha value
 source_get_alpha <- function(dir,exp_rate,startTag='#from here',endTag='#to here') {
   lines <- scan(dir, what=character(), sep="\n", quiet=TRUE)
   st<-grep(startTag,lines)

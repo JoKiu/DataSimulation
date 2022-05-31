@@ -6,6 +6,8 @@ source('PO_function.R')
 library(conformalInference)
 output<-matrix(NA,length(tau_list),length(namelist),dimnames = list(tau_list,namelist))
 
+### dir is the source file of the simulation script, with tau as a required parameter.
+### the output is the coverage of a single run.
 source_lb <- function(dir,tau){
   cat(tau,'\n')
   source(dir, local = TRUE)
@@ -13,7 +15,7 @@ source_lb <- function(dir,tau){
   cat(mean(y0>pred_out$lo),'\n')
   return(mean(y0>pred_out$lo))
 }
-
+###The function to return an average Survival for each run
 source_get_barS <- function(dir,tau=5,startTag='#from here',endTag='#to here') {
   lines <- scan(dir, what=character(), sep="\n", quiet=TRUE)
   st<-grep(startTag,lines)

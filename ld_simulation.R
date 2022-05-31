@@ -1,5 +1,5 @@
 #Data simulation
-#
+# This file was experimental, dont run this one
 rm(list=ls())
 seed <- 1
 

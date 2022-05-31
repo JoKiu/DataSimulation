@@ -1,3 +1,6 @@
+#This is the script to demonstrate the plot of
+#pseudo observation vs the real y (with uncensored data)
+#
 rm(list=ls())
 seed <- 1
 
