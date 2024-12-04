@@ -1,8 +1,7 @@
-#Data simulation
-# This file was experimental, dont run this one
-rm(list=ls())
+#Data simulation for sources, need parameters exp_rate
+#from here
 seed <- 1
-
+#repeat simulation: from here
 ########################################
 ## Parameter
 ########################################
@@ -12,14 +11,16 @@ n_calib <- n / 2
 n_test <- 3000
 beta <- 20 / sqrt(n)
 
+c_ref <- 1 : 6 / 2
 xmin <- 0; xmax <- 4
-exp_rate <- 0.4
-alpha <- 0.05
+sigma_x <- function(x) (5 + x)/5
+pr_all_list <- matrix(0, n + n_test, length(c_ref))
+alpha<- 0.1
 
 ########################################
 ## Data generating models
 ########################################
-gen_t <- function(x) exp(2 + beta * sqrt(abs(x)) +  1.5 * rnorm(length(x))) 
+gen_t <- function(x) exp(2 + beta * sqrt(abs(x)) +  sigma_x(x) * rnorm(length(x))) 
 gen_c <- function(x) rexp(rate = exp_rate, n = length(x)) 
 
 ########################################
@@ -31,7 +32,7 @@ T <- gen_t(X)
 C <- gen_c(X)
 event <- (T < C)
 censored_T <- pmin(T, C)
-data_fit <- data.frame(X1 = X, C = C, censored_T = censored_T, event = event)
+data_fit <- data.frame(X1 = X, T = T, censored_T = censored_T, event = event)
 
 ########################################
 ## Generate the calibration data and the test data
@@ -42,28 +43,28 @@ T <- gen_t(X)
 C <- gen_c(X)
 event <- (T < C)
 censored_T <- pmin(T, C)
-data <- data.frame(X1 = X, C = C, event = event, censored_T = censored_T)
+data <- data.frame(X1 = X, T = T, event = event, censored_T = censored_T)
 data_calib <- data[1 : n_calib, ]
-data_test <- data[(n_calib + 1) : (n_calib + n_test), ]
+data_test <- data[(n_calib + 1) : (n_calib + n_test),]
 data <- rbind(data_fit, data_calib)
 
 ########################################
 ## determine alpha
 ########################################
 
-gamma=table(data$event)[2]/nrow(data)
-alpha = (2*alpha)/gamma
+gamma=sum(data$event)/nrow(data)
+alpha = (alpha)/gamma
 
-
+#to here
 
 
 ########################################
 ## preparing parameters for distribution free conformal methods
 ########################################
 x <- data$X1[which(data$event)]
-y <- data$C[which(data$event)]
-x0<- data_test$X1[which(data_test$event)]
-y0<- data_test$C[which(data_test$event)]
+y <- data$censored_T[which(data$event)]
+x0<- data_test$X1
+y0<- data_test$T
 lambda<-0#ridge regression
 
 ########################################
@@ -81,4 +82,4 @@ my.conf.fun = function(x, y, x0) {
 ########################################
 pred_out<-my.conf.fun(x,y,x0)
 mean(y0>pred_out$lo)#lower bound only
-mean(y0>pred_out$lo&y0<pred_out$up)
+#repeat simulation: to here

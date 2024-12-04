@@ -1,3 +1,4 @@
+#This is an function extracted from the conformalInference package
 function (x, y, x0, train.fun, predict.fun, alpha = 0.1, w = NULL, 
           mad.train.fun = NULL, mad.predict.fun = NULL, num.grid.pts = 100, 
           grid.factor = 1.25, verbose = FALSE) 

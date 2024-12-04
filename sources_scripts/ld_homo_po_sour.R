@@ -3,7 +3,7 @@
 # tau exp_rate alpha
 #from here
 seed <- 1
-
+#repeat simulation: from here
 ########################################
 ## Parameter
 ########################################
@@ -72,4 +72,4 @@ my.conf.fun = function(x, y, x0) {
 ########################################
 pred_out<-my.conf.fun(x,y,x0)
 mean(y0>pred_out$lo)#lower bound only
-
+#repeat simulation: to here
